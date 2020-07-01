@@ -1,4 +1,5 @@
 const { stdin } = require('process');
+const { IP, localIP, PORT, bindings } = require('./constants');
 
 // Stores the active TCP connection object.
 let connection;
@@ -14,20 +15,29 @@ const setupInput = function (conn) {
   stdin.on("data", key => {
     if (key === '\u0003') {
       process.exit();
-    } else if (key === 'w') {
-      connection.write("Move: up");
-    } else if (key === 'a') {
-      connection.write("Move: left");
-    } else if (key === 's') {
-      connection.write("Move: down");
-    } else if (key === 'd') {
-      connection.write("Move: right");
-    }else if (key === 'l') {
-      connection.write("Say: Nobody touch my food!");
-    }else if (key === 'p') {
-      connection.write("Say: East Rulessss!");
     }
+    else if (bindings[key] !== undefined) {
+      connection.write(bindings[key]);
+    } 
+  
+    
+    
+    // else if (key === 'a') {
+    // } else if (key === 'w') {
+    //   connection.write("Move: up");
+    // } else if (key === 'a') {
+    //   connection.write("Move: left");
+    // } else if (key === 's') {
+    //   connection.write("Move: down");
+    // } else if (key === 'd') {
+    //   connection.write("Move: right");
+    // } else if (key === 'l') {
+    //   connection.write("Say: Nobody touch my food!");
+    // } else if (key === 'p') {
+    //   connection.write("Say: East Rulessss!");
+    // }
 
+   
   })
   }
   handleUserInput();
